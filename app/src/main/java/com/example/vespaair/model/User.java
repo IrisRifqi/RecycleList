@@ -6,11 +6,11 @@ public class User {
     private String body;
     private int userId;
 
-    public User(String name, String email) { // <= Constructor wajib
+    public User(String name, String email, int userId) {
         this.id = id;
         this.title = title;
         this.body = body;
-        this.userId = userId;
+        this.userId = this.userId;
     }
     public int getId() { return id; }
     public String getTitle() { return title; }

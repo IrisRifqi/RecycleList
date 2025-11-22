@@ -28,17 +28,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // init UI
         btnGet = findViewById(R.id.btnGet);
         btnPost = findViewById(R.id.btnPost);
         txtResult = findViewById(R.id.txtResult);
         editTextInput = findViewById(R.id.editTextInput);
+
         apiService = ApiClient.getClient().create(ApiService.class);
+
         btnGet.setOnClickListener(v -> {
             int postId = Integer.parseInt(editTextInput.getText().toString());
             getPost1(postId);
         });
 
+        // pasang click listener utk tombol POST
         setOnClickListener();
     }
 
@@ -70,8 +72,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     public void setOnClickListener() {
-        Intent intent = new Intent(MainActivity.this, PostActivity.class);
-        startActivity(intent);
+        btnPost.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, PostActivity.class);
+            startActivity(intent);
+        });
     }
+
+
 }

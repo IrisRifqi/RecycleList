@@ -1,16 +1,11 @@
 package com.example.vespaair;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import com.example.vespaair.activities.MainActivity;
 import com.example.vespaair.api.ApiClient;
 import com.example.vespaair.api.ApiService;
 import com.example.vespaair.model.User;
@@ -19,57 +14,50 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PostActivity extends AppCompatActivity {
+
     ApiService apiService;
     Button button;
-    EditText idText, titleText, bodyText, userIdText;
+    EditText titleText, bodyText, userIdText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
-        idText = findViewById(R.id.idTxt);
-        titleText = findViewById(R.id.titleTxt);
-        bodyText = findViewById(R.id.bodyTxt);
-        userIdText = findViewById(R.id.userIdTxt);
+
+        titleText = findViewById(R.id.titleInput);
+        bodyText = findViewById(R.id.bodyInput);
+        userIdText = findViewById(R.id.userIdInput);
         button = findViewById(R.id.button);
+
         apiService = ApiClient.getClient().create(ApiService.class);
-        setOnClickListener();
-        postID();
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        button.setOnClickListener(v -> postData());
     }
 
-    private void postID() {
-        User user = new User("Nicholas", "nico@example.com");
+    private void postData() {
+        String title = titleText.getText().toString();
+        String body = bodyText.getText().toString();
+        int userId = Integer.parseInt(userIdText.getText().toString());
+
+        User user = new User(title, body, userId);
+
         Call<User> call = apiService.addUser(user);
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 if (response.isSuccessful()) {
-                    User user = response.body();
-                    Toast.makeText(PostActivity.this, "Berhasil tambah!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
-                    Toast.makeText(PostActivity.this, "Response error: " + response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, "Error: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(PostActivity.this,
-                        "Gagal: " + t.getMessage(),
-                        Toast.LENGTH_SHORT).show();
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                Toast.makeText(PostActivity.this, "Gagal: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-    public void setOnClickListener(){
-            Toast.makeText(PostActivity.this, "Posted", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(PostActivity.this, MainActivity.class);
-            startActivity(intent);
     }
 
 

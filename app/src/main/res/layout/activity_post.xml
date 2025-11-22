@@ -9,73 +9,81 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <!-- ID -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/idTxt"
+            android:id="@+id/idLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="ID"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:hint="ID">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            android:tex
+                android:layout_height="wrap_content"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- TITLE -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/titleTxt"
+            android:id="@+id/titleLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="Title"
-            android:padding="10dp">
+            android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/titleInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            android:tex
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- BODY -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/bodyTxt"
+            android:id="@+id/bodyLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:hint="Body"
-            android:padding="10dp">
+            android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/bodyInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            android:tex
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:minLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- USER ID -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/userIdTxt"
+            android:id="@+id/userIdLayout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="UserID"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:hint="User ID"
+            android:layout_marginTop="12dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/userIdInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            android:tex
+                android:layout_height="wrap_content"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- BUTTON -->
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Push"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 
