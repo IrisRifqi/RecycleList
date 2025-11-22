@@ -2,6 +2,7 @@ package com.example.vespaair.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +10,6 @@ import com.example.vespaair.R;
 import com.example.vespaair.api.ApiClient;
 import com.example.vespaair.api.ApiService;
 import com.example.vespaair.model.User;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,38 +17,43 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     ApiService apiService;
-
     Button btnGet, btnPost;
     TextView txtResult;
+    EditText editTextInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // init UI
         btnGet = findViewById(R.id.btnGet);
         btnPost = findViewById(R.id.btnPost);
         txtResult = findViewById(R.id.txtResult);
-        btnGet.setOnClickListener(v -> getPost1());
-        btnPost.setOnClickListener(v -> addUser());
+        editTextInput = findViewById(R.id.editTextInput);
 
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        // Contoh GET
-        getPost1();
+        btnGet.setOnClickListener(v -> {
+            int postId = Integer.parseInt(editTextInput.getText().toString());
+            getPost1(postId);
+        });
 
-        // Contoh POST / tambah data
-        addUser();
+        btnPost.setOnClickListener(v -> addUser());
     }
 
-    private void getPost1() {
-        Call<User> call = apiService.getPostById(1);
+    private void getPost1(int postId) {
+        Call<User> call = apiService.getPostById(postId);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     User user = response.body();
-                    txtResult.setText("User ID: " + user.getId() + "\nName: " + user.getName() + "\nEmail: " + user.getEmail());
+                    txtResult.setText(
+                            "ID: " + user.getId() +
+                                    "\nTitle: " + user.getTitle() +
+                                    "\nBody: " + user.getBody());
                 } else {
                     Toast.makeText(MainActivity.this,
                             "Response error: " + response.code(),
@@ -68,22 +71,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addUser() {
-        // Pastikan class User punya constructor!
         User user = new User("Nicholas", "nico@example.com");
 
         Call<User> call = apiService.addUser(user);
+
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this,
-                            "Berhasil tambah user!",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this,
-                            "Error tambah user: " + response.code(),
-                            Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(MainActivity.this, "POST berhasil", Toast.LENGTH_SHORT).show();
             }
 
             @Override
