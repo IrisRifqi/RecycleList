@@ -26,4 +26,14 @@
         android:text="Response muncul di sini..."
         android:textSize="16sp" />
 
+    <EditText
+        android:id="@+id/editTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:inputType="text"
+        android:text="Masukkan ID" />
+
 </LinearLayout>

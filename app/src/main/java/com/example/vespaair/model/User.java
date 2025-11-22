@@ -2,18 +2,18 @@ package com.example.vespaair.model;
 
 public class User {
     private int id;
-    private String name;
-    private String email;
+    private String title;
+    private String body;
     private int userId;
 
     public User(String name, String email) { // <= Constructor wajib
         this.id = id;
-        this.name = name;
-        this.email = email;
+        this.title = title;
+        this.body = body;
         this.userId = userId;
     }
     public int getId() { return id; }
-    public String getName() { return name; }
-    public String getEmail() { return email; }
+    public String getTitle() { return title; }
+    public String getBody() { return body; }
     public int getUserId() { return userId; }
 }

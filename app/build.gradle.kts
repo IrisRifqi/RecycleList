@@ -18,6 +18,13 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    packaging {
+        resources.excludes.add("META-INF/INDEX.LIST")
+        resources.excludes.add("META-INF/DEPENDENCIES")
+        resources.excludes.add("META-INF/LICENSE")
+        resources.pickFirsts.add("META-INF/io.netty.versions.properties")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
