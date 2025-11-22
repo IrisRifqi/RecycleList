@@ -11,9 +11,9 @@ import retrofit2.http.Path;
 public interface ApiService {
     @GET("posts/{id}")
     Call<User> getPostById(@Path("id") int id);
-    @POST("users")
+    @POST("posts")
     Call<User> addUser(@Body User user);
-    @DELETE("users/{id}")
+    @DELETE("posts/{id}")
     Call<Void> deleteUser(@Path("id") int id);
 
 }
