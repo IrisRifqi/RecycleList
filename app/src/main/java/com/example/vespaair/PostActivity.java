@@ -6,6 +6,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import com.example.vespaair.api.ApiClient;
 import com.example.vespaair.api.ApiService;
 import com.example.vespaair.model.User;
@@ -41,6 +45,11 @@ public class PostActivity extends AppCompatActivity {
         User user = new User(title, body, userId);
 
         Call<User> call = apiService.addUser(user);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.post), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         call.enqueue(new Callback<>() {
             @Override

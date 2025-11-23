@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="25dp"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:id="@+id/main">
 
     <Button
         android:id="@+id/btnGet"
@@ -17,6 +19,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="POST User" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="DELETE User" />
 
     <TextView
         android:id="@+id/txtResult"
@@ -34,6 +43,6 @@
         android:textSize="16sp"
         android:layout_marginTop="20dp"
         android:inputType="text"
-        android:text="Masukkan ID" />
+        android:hint="Masukkan ID" />
 
 </LinearLayout>
